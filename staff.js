@@ -1,5 +1,5 @@
 // Google Apps Script URLs
-const ORDER_CREATION_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbybK7vP-ANtftuw37RWwkfsX76N5vL2JzqksV4_Y62aHS6K7tRKvv6CMiqXsJIPp0Wc/exec';  
+const ORDER_CREATION_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzTW7Yt6CzQtcsqY6d2AjU9C-QHw1uFD316R0O2kcfo7DWRJCdofVZtBVXEVy4mKSY/exec';  
 const PRODUCT_FETCH_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx4epS0yxkG51pVRq0GAZs_GcWyHjUHq8CFDcNk16XQjNVdFbuBoeGgOZWLTzL_uKMe/exec';  
 
 let selectedProducts = [];  // Array to store selected products and their quantities
@@ -318,39 +318,29 @@ function displayOrders(orders) {
     });
 }
 
-function getOrderCounts(e) {
-  const staffUsername = e.parameter.staffUsername;
-  const requestedDate = e.parameter.date;  // e.g., "2025-03-12"
-  const requestedMonth = e.parameter.month; // e.g., "2025-03"
+const ORDER_STATS_SCRIPT_URL = ORDER_CREATION_SCRIPT_URL;
 
-  if (!staffUsername || !requestedDate || !requestedMonth) {
-    return ContentService.createTextOutput(
-      JSON.stringify({ success: false, message: "Missing parameters" })
-    ).setMimeType(ContentService.MimeType.JSON);
-  }
+function fetchOrderCounts(staffUsername) {
+    const today = new Date().toISOString().split('T')[0]; // e.g., "2025-03-12"
+    const currentMonth = today.slice(0, 7); // e.g., "2025-03"
 
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(ordersSheetName);
-  const data = sheet.getDataRange().getValues();
-  
-  let dailyCount = 0;
-  let monthlyCount = 0;
-
-  data.forEach((row, index) => {
-    if (index === 0) return; // Skip header row
-    const orderDate = Utilities.formatDate(new Date(row[8]), Session.getScriptTimeZone(), "yyyy-MM-dd");
-    
-    if (row[16] === staffUsername) {  // Check staff username
-      if (orderDate === requestedDate) {
-        dailyCount++; // Count daily orders
-      }
-      if (orderDate.startsWith(requestedMonth)) {
-        monthlyCount++; // Count monthly orders
-      }
-    }
-  });
-
-  return ContentService.createTextOutput(
-    JSON.stringify({ success: true, dailyCount, monthlyCount })
-  ).setMimeType(ContentService.MimeType.JSON);
+    fetch(`${ORDER_STATS_SCRIPT_URL}?action=getOrderCounts&staffUsername=${encodeURIComponent(staffUsername)}&date=${today}&month=${currentMonth}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('dailyOrderCount').textContent = `Günlük sifarişlər: ${data.dailyCount}`;
+                document.getElementById('monthlyOrderCount').textContent = `Aylıq sifarişlər: ${data.monthlyCount}`;
+            } else {
+                console.error("Failed to fetch order counts:", data.message);
+            }
+        })
+        .catch(error => console.error("Error fetching order counts:", error));
 }
 
+// Fetch counts on page load
+window.addEventListener('DOMContentLoaded', () => {
+    const staffUsername = localStorage.getItem('staff_username');
+    if (staffUsername) {
+        fetchOrderCounts(staffUsername);
+    }
+});
