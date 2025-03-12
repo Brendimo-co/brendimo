@@ -8,41 +8,40 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
+  font-family: 'Arial', sans-serif;
   color: #333;
-  background-color: #f7f8fa;
+  background-color: #f4f7fc;
   padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* Main Container Styling */
+/* Main Container */
 .container {
   width: 100%;
-  max-width: 600px;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-  margin-bottom: 20px; /* Adds space between each section */
+  max-width: 650px;
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
 }
 
 /* Headings */
 h2 {
-  font-size: 1.8em;
+  font-size: 1.9em;
   margin-bottom: 20px;
-  color: #333;
+  color: #222;
   text-align: center;
-  font-weight: 600;
+  font-weight: bold;
 }
 
 /* Form Styling */
 form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 16px;
 }
 
 .mb-3 {
@@ -51,66 +50,68 @@ form {
 
 .form-label {
   font-weight: 600;
-  margin-bottom: 8px;
-  color: #555;
+  color: #444;
   font-size: 1em;
 }
 
 .form-control {
   padding: 12px;
-  border: 1px solid #ccc;
+  border: 2px solid #ddd;
   border-radius: 8px;
   font-size: 1em;
   width: 100%;
-  transition: border-color 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .form-control:focus {
-  border-color: #4CAF50;
+  border-color: #28a745;
   outline: none;
+  box-shadow: 0 0 5px rgba(40, 167, 69, 0.4);
 }
 
 textarea.form-control {
   resize: vertical;
+  min-height: 80px;
 }
 
-/* Button Styling */
+/* Buttons */
 button {
   padding: 12px 16px;
   border: none;
   border-radius: 8px;
   font-size: 1em;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  width: 100%; /* Full-width for better visibility and tap area on mobile */
+  transition: all 0.3s ease-in-out;
+  width: 100%;
 }
 
 button.btn-primary {
-  background-color: #4CAF50;
+  background: linear-gradient(45deg, #28a745, #20c997);
   color: #fff;
 }
 
 button.btn-primary:hover {
-  background-color: #45A049;
+  background: linear-gradient(45deg, #20c997, #17a2b8);
 }
 
 button.btn-info {
-  background-color: #2196F3;
+  background: linear-gradient(45deg, #007bff, #0056b3);
   color: #fff;
 }
 
 button.btn-info:hover {
-  background-color: #1E88E5;
+  background: linear-gradient(45deg, #0056b3, #003e80);
 }
 
 button:focus {
   outline: 2px solid #2196F3;
 }
 
-/* Error and Success Messages */
+/* Error & Success Messages */
 .text-success,
 .text-danger {
-  padding: 10px;
+  padding: 12px;
   border-radius: 8px;
   margin-top: 15px;
   font-weight: bold;
@@ -132,7 +133,7 @@ button:focus {
 /* Selected Products List */
 #selectedProductsList {
   list-style: none;
-  padding-left: 0;
+  padding: 0;
 }
 
 #selectedProductsList li {
@@ -143,23 +144,25 @@ button:focus {
   border: 1px solid #ddd;
   border-radius: 8px;
   margin-bottom: 8px;
-  font-size: 0.95em;
+  font-size: 1em;
+  background: #f7f7f7;
 }
 
 #selectedProductsList button {
-  background-color: #ff6666;
+  background: #dc3545;
   color: #fff;
-  padding: 5px 8px;
-  border-radius: 5px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.9em;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
 }
 
 #selectedProductsList button:hover {
-  background-color: #ff4d4d;
+  background: #c82333;
 }
 
-/* Order List */
+/* Order Cards */
 .order-cards-container {
   display: flex;
   flex-direction: column;
@@ -169,9 +172,14 @@ button:focus {
 
 .order-card {
   border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 15px;
-  background-color: #f9f9f9;
+  border-radius: 10px;
+  padding: 18px;
+  background-color: #fff;
+  transition: all 0.3s ease;
+}
+
+.order-card:hover {
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.1);
 }
 
 .order-card h3 {
@@ -188,28 +196,47 @@ button:focus {
   font-weight: bold;
 }
 
+/* Order Status Colors */
 .order-card.delivered {
-  border-left: 5px solid #4CAF50; /* Delivered order styling */
+  border-left: 5px solid #28a745;
+  background: #eafaf1;
 }
 
 .order-card.pending {
-  border-left: 5px solid #FFA726; /* Pending order styling */
+  border-left: 5px solid #ffa726;
+  background: #fff7e6;
 }
 
-/* Responsive Design for Sequential Layout */
+/* Order Stats */
+.order-stats {
+  display: flex;
+  justify-content: space-between;
+  background: #fff;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.order-stats h3 {
+  font-size: 1.2em;
+  color: #333;
+  font-weight: 600;
+}
+
+/* Responsive Design */
 @media (max-width: 600px) {
   body {
     padding: 10px;
   }
 
   .container {
-    padding: 15px;
+    padding: 18px;
     border-radius: 8px;
-    margin-bottom: 20px;
   }
 
   h2 {
-    font-size: 1.5em;
+    font-size: 1.6em;
   }
 
   button,
@@ -232,10 +259,13 @@ button:focus {
     font-size: 1em;
   }
 
-  /* Sequential layout for different sections */
-  .order-container,
-  .container,
+  .order-stats {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
   .order-cards-container {
-    width: 100%;
+    gap: 12px;
   }
 }
