@@ -337,7 +337,6 @@ function fetchOrderCounts(staffUsername) {
         })
         .catch(error => console.error("Error fetching order counts:", error));
 }
-
 // Fetch counts on page load
 window.addEventListener('DOMContentLoaded', () => {
     const staffUsername = localStorage.getItem('staff_username');
