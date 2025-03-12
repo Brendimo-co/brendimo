@@ -318,6 +318,7 @@ function displayOrders(orders) {
     });
 }
 
+
 const ORDER_STATS_SCRIPT_URL = ORDER_CREATION_SCRIPT_URL;
 
 function fetchOrderCounts(staffUsername) {
