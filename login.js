@@ -39,6 +39,7 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
          } else if (data.role === 'Deliveryhead') {
         // Store the delivery username in localStorage
         localStorage.setItem('deliveryhead_username', username);
+
         
         // Redirect to the delivery dashboard
         window.location.href = 'deliveryhead-dashboard.html';
